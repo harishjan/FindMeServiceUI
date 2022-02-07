@@ -5,7 +5,7 @@ import { Button, Navbar } from 'react-bootstrap'
 import { useDispatch, useSelector } from "react-redux"
 import Login from "./compnents/login"
 import Home from "./compnents/home"
-import Profile from "./compnents/profile"
+import Profile from "./compnents/profiles/profile"
 import Register from "./compnents/register"
 import { authLogin, authLogout } from "./actions/authentication"
 import { clearMessage } from "./actions/message"
@@ -81,7 +81,7 @@ function getsomething(){
           <Link to={"/home"} className="navbar-brand">
             Help Finder
           </Link>          
-
+       
           {currentUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
@@ -108,7 +108,14 @@ function getsomething(){
                   Sign Up
                 </Link>
               </li>
+
+              <li className="nav-item">
+                <Link to={"/profile"} className="nav-link">
+                 Profiles
+                </Link>
+              </li>
             </div>
+
           )}
         </nav>
 
