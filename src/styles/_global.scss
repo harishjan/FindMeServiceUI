@@ -5,14 +5,35 @@
 .card-container.card {
     max-width: 350px !important;
     padding: 40px 40px;
+    //margin-top: 10px;    
 }
+
 .profiles-container
 {
-    
-    max-width: 80% !important;
-    padding: 100px 40px;
-    position: relative;
+   // max-width: 350px !important;
+    padding-top:70px;
+  // padding-left: 15%;
+   // margin-top: 10px;    
+    width: 80%;
+    align-content: center;
 }
+
+.profiles-container .react-tabs__tab-list li{
+    color: #231E39;
+    //color: #03BFCB;    
+    &:hover {
+        transition: all 0.2s ease-in-out;        
+        color: #03BFCB;
+        font-weight: bold;
+      }
+}
+.profiles-container .react-tabs__tab-list .react-tabs__tab--selected {
+    color: #03BFCB;
+    font-weight: bold;
+    
+}
+
+
 .card {
     background-color: #231E39;
 	border-radius: 5px;
@@ -113,9 +134,15 @@
     -webkit-border-radius: 50%;
     border-radius: 50%;
 }
-.login-containe r{
-    padding-top: 100px;
-    margin-top: 100px;
+.register-container,
+.login-container {
+
+    align-content: center;
+     padding-top: 100px;
+   //  padding-left: 15%;
+     //margin-top: 10px;    
+     width: 80%;
+     align-content: center;
 }
 .searchbox{
     padding: 0px;
@@ -123,7 +150,10 @@
     border: 1px solid grey;    
     width: 70%;
     background: #f1f1f1;
+    
+    
 }
+
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
@@ -172,8 +202,9 @@ p {
     margin-top: -25px;
 }
 .searchbox-container{
-    padding-top: 25px;
+    margin-top: 90px;
     color: #231E39;
+    position:static;
 }
 
 .footer-container {
@@ -211,14 +242,7 @@ p {
     padding-bottom: 5%;
 }
 
-@media only screen and (max-width: 600px) {
-    .searchgrid-container{
-      width:350px;
-      grid-template-columns: 1fr;
-      grid-gap:10px 10px;
-    }
-    
-}
+
 
 .searchcard-container .status{
     color: #033f32;
@@ -256,7 +280,7 @@ p {
 	left: 30px;
 }
 
- .round {
+.round {
 	border: 1px solid #03BFCB;
 	border-radius: 50%;
 	padding: 7px;
@@ -270,6 +294,11 @@ button.primary {
 	font-family: Montserrat, sans-serif;
 	font-weight: 500;
 	padding: 10px 25px;
+    &:hover {
+        transition: all 0.2s ease-in-out;
+        background: #fff;
+        color: #808080;
+      }
 }
 
 button.primary.ghost {
@@ -420,12 +449,15 @@ footer a {
 
     /* Styles for the input */
     .ReactTags__tagInput {
-        border-radius: 10px; 
+        //border-radius: 10px; 
         padding-top: 10px;
         padding-bottom: 10px;
-        border-radius: 10%;
+        //border-radius: 10%;
         text-align: left;
         position: relative;
+        &:focus{
+            border: 1px solid #03BFCB;
+        }
        
         
     }
@@ -433,6 +465,11 @@ footer a {
         padding: 5px 5px 5px 5px;
         width: 100%;
         border-radius: 5px; 
+        border: 2px inset #EBE9ED;
+        &:focus{
+            border: 1px solid #03BFCB;
+        }
+        
     }
     .ReactTags__tagInput input.ReactTags__tagInputField:focus {
         border: 1px solid #03BFCB;
@@ -497,6 +534,7 @@ footer a {
         border-bottom: 1px solid rgb(126, 126, 126);
         padding: 5px 5px 5px 5px;
         margin: 0;
+        
     }
     .ReactTags__suggestions li mark {
         text-decoration: underline;
@@ -515,3 +553,17 @@ footer a {
         color: white;
     }
 }
+
+
+
+  @media only screen and (max-width: 600px) {
+    .searchgrid-container{
+      width:350px;
+      grid-template-columns: 1fr;
+      grid-gap:10px 10px;
+    }
+    
+    }
+
+
+  

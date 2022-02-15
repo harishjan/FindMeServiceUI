@@ -43,6 +43,14 @@ const GoogleAddressAutoComplete = ({setAdddress}) => {
             document.removeEventListener('click', handleClickOutside, true);
         };
     });
+    const onFocus = event => {
+
+        if(event.target.autocomplete)
+        {
+          event.target.autocomplete = "nothing";
+        }
+     
+     };
 
     const handleClickOutside = (e) => {       
         if(e.srcElement.nodeName === 'LI' && (e.srcElement.className === ("addresssuggestion-active") || 
@@ -121,6 +129,8 @@ const GoogleAddressAutoComplete = ({setAdddress}) => {
               }}
             onKeyDown={onKeyDown}
             value={input}
+            onFocus={onFocus} 
+            autocomplete="off"
         />
         {showSuggestions && input &&  <SuggestionsListComponent/>}
         </>

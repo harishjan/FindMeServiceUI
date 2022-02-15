@@ -39,8 +39,8 @@ const Profile = (props) => {
       const [tabIndex, setTabIndex] = useState(0);
     
     return (
-        <div className="profiles-container">
-           <Tabs selectedIndex={tabIndex} onSelect={index => setTabIndex(index)}>
+        <div className="container profiles-container tc pa4 min-vh-100">
+           <Tabs selectedIndex={tabIndex} onSelect={index => setTabIndex(index)} className="tabs tc pa4 min-vh-100">
             <TabList>
                 <Tab>My information</Tab>
                 <Tab>Work Inquiry</Tab>

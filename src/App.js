@@ -11,34 +11,20 @@ import { authLogin, authLogout } from "./actions/authentication"
 import { clearMessage } from "./actions/message"
 import { history } from "./actions/history"
 import events from "./helper/events"
-//import {  Router, Routes, Route, Link } from "react-router-dom";
 import {
   BrowserRouter as Router,
-  Routes,
+  Routes, 
   Route,
   Link
    
   
 } from "react-router-dom";
+import HeaderNavBar from "./compnents/navbar"
+import { SET_LAT, SET_LOCATION_DECLIED, SET_LONG, SET_MESSAGE } from './enums/constant';
 
+export const App = () => {  
 
-//import Register from "./components/Register";
-
-//import Profile from "./components/Profile";
-//import WorkEnquiry from "./components/WorkEnquiry";
-//import ModSiteReview from "./components/ModSiteReview";
-//import SiteReview from "./components/SiteReview";
-
-
-
-// import AuthVerify from "./common/AuthVerify";
-
-
-export const App = () => {
-  // const [showModeratorBoard, setShowModeratorBoard] = useState(false);
-  // const [showAdminBoard, setShowAdminBoard] = useState(false);
-
-  const { user: currentUser } = useSelector((state) => state.auth);
+  const { user: currentUser } = useSelector((state) => state.auth);  
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -51,15 +37,7 @@ export const App = () => {
     dispatch(authLogout());
   }, [dispatch]);
 
-  useEffect(() => {
-    // if (currentUser) {
-      // setShowModeratorBoard(currentUser.roles.includes("ROLE_MODERATOR"));
-      // setShowAdminBoard(currentUser.roles.includes("ROLE_ADMIN"));
-    // } else {
-      // setShowModeratorBoard(false);
-      // setShowAdminBoard(false);
-    // }
-
+  useEffect(() => {  
     events.on("logout", () => {
       logOut();
     });
@@ -68,14 +46,68 @@ export const App = () => {
       events.remove("logout");
     };
   }, [currentUser, logOut]);
-function getsomething(){
-  alert('test')
-}
+
+  useEffect(()=>{
+
+    if (navigator.geolocation) {
+
+      navigator.permissions
+        .query({ name: "geolocation" })
+        .then(function (result) {
+          if (result.state === "granted") {            
+            navigator.geolocation.getCurrentPosition((m) => {
+              dispatch({
+                type: SET_LAT,
+                payload: m.coords.latitude,
+              })
+              dispatch({
+                type: SET_LONG,
+                payload: m.coords.longitude,
+              })
+            });
+            dispatch({
+              type: SET_LOCATION_DECLIED,
+              payload: false,
+            })
+            //If granted then you can directly call your function here
+          } else if (result.state === "prompt") {
+
+          } else if (result.state === "denied") {        
+            dispatch({
+              type: SET_LOCATION_DECLIED,
+              payload: true,
+            })
+          }
+          result.onchange = function () {
+            
+          };
+        });
+    } else {
+      dispatch({
+        type: SET_LOCATION_DECLIED,
+        payload: true,
+      })
+      alert("Sorry Not available!");
+    }
+  
+  },[]);
   return (      
     <div>  
-      
-   
+    
     <Router>
+      
+      <Fragment>
+        <HeaderNavBar />   
+        <Routes>                
+        <Route exact path='/' element={<Home/>}/>
+        <Route exact path='/home' element={<Home/>}/>
+        <Route exact path='/login' element={<Login/>}/>
+        <Route exact path='/profile' element={<Profile/>}/>
+        <Route exact path='/register' element={<Register/>}/>              
+        </Routes>        
+      </Fragment>
+    </Router>
+   {/* <Router>
       <div>
         <nav className="navbar navbar-expand navbar-dark header-container">
           <Link to={"/home"} className="navbar-brand">
@@ -132,14 +164,16 @@ function getsomething(){
           </Fragment>
         </div>
 
-        <footer className="footer-container">
+      </div>
+    </Router>      
+       */}
+
+       
+      <footer className="footer-container">
           <p>
             Project <i class="fa "></i> by Harish Janardhanan 
           </p>
         </footer>
-      </div>
-    </Router>      
-      
     </div>
   )
 };

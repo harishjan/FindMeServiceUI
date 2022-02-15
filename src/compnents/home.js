@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux"
 import Search from './Search/Search';
 import {getUserDetails, getUserInquirySubmission, getUserInquiryReceived} from "../services/userService";
+import { clearMessage, setMessage } from "../actions/message";
 
 
 const Home = () => {
   const [content, setContent] = useState("");
-
+  const dispatch = useDispatch();    
   useEffect(() => {
+    dispatch(clearMessage());   
     getUserInquirySubmission().then(
       (response) => {
         setContent(response.data);
@@ -21,15 +24,16 @@ const Home = () => {
       }
     );
   }, []);
-
+ 
   return (
-    <div className="container">
-      <header className="jumbotron">
-        <h3>{content}</h3>
-      </header>
-      <div className="tc bg-grey ma0 pa4 min-vh-100">
+      
+    <div className="container">   
+     
+      <div className="tc pa4 min-vh-100">
         <Search/>
-    </div>
+       
+      </div>
+     
     </div>
   );
 };

@@ -2,16 +2,20 @@
 //reference from https://medium.com/geekculture/create-a-simple-search-component-in-react-js-using-react-hooks-710c1dfe8b58
 // src/components/Search.js
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Scroll from './Scroll';
 import SearchList from './SearchList';
 import SearchField from 'react-search-field';
+import { useDispatch, useSelector } from 'react-redux';
+import { setMessage } from '../../actions/message';
 
 function Search() {
 
   const [searchedKey, setSearchedKey] = useState("");
   const [searchedResult, setSearchedResult] = useState("");
-
+  const { lat: curLat, long: curLong, locationDeclined: locDeclined } = useSelector((state) => state.geoLocation);
+  const { message } = useSelector(state => state.message);
+  const dispatch = useDispatch();  
   /*const filteredPersons = details.filter(
     person => {
       return (
@@ -33,14 +37,25 @@ function Search() {
 */
  
   function onSearchClick(searchValue)  {
-    setSearchedKey(searchValue);
-    
+
+    if(locDeclined){
+        dispatch(setMessage("Please allow the browser to get your location to start the search"));
+        return;
+    }
+    setSearchedKey(searchValue);    
       //do search 
       //get the results
       // testing with dummy details
     setSearchedResult(initialDetails)
 
   }
+
+ 
+  useEffect(() => {        
+      if(locDeclined)
+        dispatch(setMessage("Please allow the browser to get your location to start the search"));
+  },[locDeclined]);
+
 
   return (
     <section className="searchbox-container">
@@ -50,7 +65,8 @@ function Search() {
       <div className="pa2">
       <SearchField  classNames="searchbox"
         placeholder='Search For a skill, eg: handyman'
-        onSearchClick={onSearchClick}
+        onSearchClick={onSearchClick}    
+                   
         />
       </div>
       {searchedResult &&
@@ -58,6 +74,13 @@ function Search() {
        <SearchList result={searchedResult} />
       
       }
+       {message && (
+        <div className="form-group">
+        <div className="alert alert-danger" role="alert">
+            {message} 
+        </div>
+        </div>
+       )}  
     </section>
   );
 }

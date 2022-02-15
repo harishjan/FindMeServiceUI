@@ -213,8 +213,8 @@ const Register = (props) => {
     /*end of skill tag section*/
 
     return (
-        <div className="col-md-12">
-        <div className="card card-container card-register">
+        <div className="col-md-12 card-register container tc pa4 min-vh-100">
+        <div className="card card-container ">
             <img
             src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
             alt="profile-img"

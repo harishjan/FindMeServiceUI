@@ -9,9 +9,6 @@ const ProfileInfo = () => {
     const { user: currentUser } = useSelector((state) => state.auth);
     return(
            
-                
-       
-
             <div class="myinfo-container">
                     <span class="pro">Expert</span>
                     <img class="round" alt='Jim Carry' src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"  />
