@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8099/api/auth/";
+const API_URL = "http://localhost:8098/api/auth/";
 
 const registerHelpFinderUSer = async (email, password, firstName, lastName, address) => {
   return await axios.post(API_URL + "signup", {
@@ -22,10 +22,10 @@ const registerAsWorker = async (email, password, firstName, lastName, address) =
     });
   };
 
-const signin = async (username, password) => {
+const signin = async (email, password) => {
   const response = await axios
     .post(API_URL + "signin", {
-      username,
+      email,
       password,
     });
   if (response.data.accessToken) {
