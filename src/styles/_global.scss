@@ -233,6 +233,11 @@ p {
 	text-align: center;
     position: relative;
 }
+
+.searchcard-container .userdesc{
+    color: #f7fcf4;
+}
+
 .searchgrid-container{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -565,9 +570,27 @@ footer a {
     
     }
 
-    .profilemenu-continer{
+    .profilemenu-container{
         display: flex;
         align-items: center;
         margin-right: 24px;
 
+    }
+    .dropdown-toggle,
+    .btn-primary,
+    .btn,
+    .profilemenu-container button {
+        background-color: #03BFCB  !important;;
+        border: 1px solid #03BFCB  !important;;
+        border-radius: 3px  !important;;
+        color: #231E39  !important;;
+        font-family: Montserrat, sans-serif  !important;;
+        font-weight: 500  !important;;
+        padding: 10px 25px  !important;;
+        &:hover {
+            transition: all 0.2s ease-in-out  !important;;
+            background: #fff  !important;
+            color: #808080  !important;
+          }
+        
     }

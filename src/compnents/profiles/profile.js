@@ -31,8 +31,8 @@ const Profile = (props) => {
     const { isLoggedIn } = useSelector(state => state.auth);
    
    
-    if (isLoggedIn) {
-      //  return <Navigate to="/home" />;
+    if (!isLoggedIn) {
+       return <Navigate to="/home" />;
     }
   
     
@@ -40,7 +40,7 @@ const Profile = (props) => {
     
     return (
         <div className="container profiles-container tc pa4 min-vh-100">
-           <Tabs selectedIndex={tabIndex} onSelect={index => setTabIndex(index)} className="tabs tc pa4 min-vh-100">
+           <Tabs selectedIndex={tabIndex} onSelect={index => setTabIndex(index)} className="tabs profiles-tab tc pa4 min-vh-100">
             <TabList>
                 <Tab>My information</Tab>
                 <Tab>Work Inquiry</Tab>

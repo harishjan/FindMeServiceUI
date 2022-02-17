@@ -48,55 +48,19 @@ export default function HeaderNavBar() {
       };
     }, [currentUser, logOut]);
 
-  
-     
- function profileMenu() {
-        return (
-          <div style={{ display: 'block', 
-                        width: 700, 
-                        padding: 30 }}>
-            <h4>React-Bootstrap Dropdown Component</h4>
-            <Dropdown>
-              <Dropdown.Toggle variant="success">
-                Open Menu
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item href="#">
-                  Home Page
-                </Dropdown.Item>
-                <Dropdown.Item href="#">
-                  Settings
-                </Dropdown.Item>
-                <Dropdown.Item href="#">
-                  Logout
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
-        );
-      }    
-    
-  function capitalizeFirstLetter(value){
-    return value.charAt(0).toUpperCase()+ value.slice(1);
-  }
-  return (
+    function capitalizeFirstLetter(value){
+        if(value.length === 0) return value;
+        return value.charAt(0).toUpperCase()+ value.slice(1);
+    }
+    return (
     <>
       <Nav>
         
         <NavMenu>  
           <NavLink to='/home' className="navlink" activeStyle>
-            Search
+            HelpFinder
           </NavLink>          
-          {currentUser &&
-          <>
-          <NavLink to='/profile' className="navlink" activeStyle>
-          {currentUser.firstName}
-          </NavLink>   
-          <NavLink to='/login' className="navlink" onClick={logOut}>
-          LogOut
-        </NavLink>
-        </>
-          }
+         
                 
           {!currentUser &&    
           <NavLink to='/register' className="navlink" activeStyle>
@@ -109,20 +73,21 @@ export default function HeaderNavBar() {
         </NavBtn> 
         :(
         <div className="profilemenu-container">
-        <Dropdown>
-        <Dropdown.Toggle >
-          Hello {capitalizeFirstLetter(currentUser.firstName)}
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Dropdown.Item href="/profile">
-            My Profile
-          </Dropdown.Item>
-          
-          <Dropdown.Item href="/login" onClick={logOut}>
-            Logout
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown> </div>)
+            <Dropdown>
+                <Dropdown.Toggle >
+                Hello {capitalizeFirstLetter(currentUser.firstName)}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                <Dropdown.Item href="/profile">
+                    My Profile
+                </Dropdown.Item>
+                
+                <Dropdown.Item href="/login" onClick={logOut}>
+                    Logout
+                </Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown> 
+        </div>)
 
         }   
         

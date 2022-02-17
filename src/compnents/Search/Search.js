@@ -8,45 +8,62 @@ import SearchList from './SearchList';
 import SearchField from 'react-search-field';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMessage } from '../../actions/message';
-
+import {searchSkills} from "../../services/skillSearch"
+import { SET_MESSAGE } from '../../enums/constant';
 function Search() {
 
   const [searchedKey, setSearchedKey] = useState("");
   const [searchedResult, setSearchedResult] = useState("");
   const { lat: curLat, long: curLong, locationDeclined: locDeclined } = useSelector((state) => state.geoLocation);
   const { message } = useSelector(state => state.message);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();  
-  /*const filteredPersons = details.filter(
-    person => {
-      return (
-        person
-        .name
-        .toLowerCase()
-        .includes(searchField.toLowerCase()) ||
-        person
-        .email
-        .toLowerCase()
-        .includes(searchField.toLowerCase())
-      );
-    }
-  );*/
-
- /* const handleChange = e => {
-    setSearchField(e.target.value);
-  };
-*/
  
   function onSearchClick(searchValue)  {
-
-    if(locDeclined){
-        dispatch(setMessage("Please allow the browser to get your location to start the search"));
+    setLoading(true);
+    dispatch(setMessage(""));        
+    if( locDeclined){
+        dispatch(setMessage("Please allow the browser to get your location to start the search"));        
         return;
     }
-    setSearchedKey(searchValue);    
-      //do search 
-      //get the results
-      // testing with dummy details
-    setSearchedResult(initialDetails)
+    if(!searchValue){
+        dispatch(setMessage("Please enter a skill to search"));        
+        return;
+    }
+    setSearchedKey(searchValue);             
+    searchSkills(searchValue, 5 , "40.5757637023926", "-74.3618087768555").then(
+        (result) => {
+            console.log(result.data)
+            if(!result.data || result.data.length == 0){
+                dispatch({
+                    type: SET_MESSAGE,
+                    payload: "No Matching result found",
+                  });
+            }
+            else
+                setSearchedResult(result.data);
+            setLoading(false);
+            return Promise.resolve();
+        },
+        (error) => {
+            console.log(error);
+          const message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+    
+          dispatch({
+            type: SET_MESSAGE,
+            payload: message,
+          });
+          setLoading(false);
+          return Promise.reject();
+        }
+      );
+
+   
 
   }
 
@@ -65,10 +82,13 @@ function Search() {
       <div className="pa2">
       <SearchField  classNames="searchbox"
         placeholder='Search For a skill, eg: handyman'
-        onSearchClick={onSearchClick}    
+        onSearchClick={onSearchClick}    onEnter={onSearchClick} 
                    
         />
       </div>
+      {loading && (
+                <span className="spinner-border spinner-border-sm"></span>
+      )}
       {searchedResult &&
     
        <SearchList result={searchedResult} />
@@ -85,41 +105,4 @@ function Search() {
   );
 }
 
-
-const initialDetails = [
-    {
-      id: 1,    
-      firstName: "Jane",
-      lastName: "Doe",
-      email: "janedoe@gmail.com",
-      address: "New Delhi, India",
-    },
-    {
-      id: 2,    
-      firstName: "Mary",
-      lastName: "Rosamund",
-      email: "agra@rosie.com",
-      address: "Tbilisi, India",
-    },
-    {
-      id: 3,    
-      firstName: "Sherlock",
-      lastName: "Watson",      
-      email: "irene@johnlock.com",
-      address: "Baker Street, India",
-    },
-    {
-      id: 4, firstName: "John",
-      lastName: "Holmes",      
-      email: "mary@johnlock.com",
-      address: "Baker Street, India",
-    },
-    {
-      id: 5, 
-      firstName: "Mycroft",
-      lastName: "Lestrade",      
-      email: "britishgovt@gmail.com",
-      address: "London, India",
-    },
-  ];
 export default Search;

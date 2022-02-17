@@ -32,6 +32,7 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
     "react-search-field": "^2.0.1",
+    "react-swipeable-list": "^1.5.1",
     "react-tabs": "^3.2.3",
     "react-tag-input": "^6.8.0",
     "react-toggle-button": "^2.2.0",

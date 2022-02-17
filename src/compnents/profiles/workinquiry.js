@@ -13,6 +13,7 @@ function WorkInquiry() {
     })
     
     return (
+        
         <>
         {result.length > 0 &&
         <div className="searchgrid-container">

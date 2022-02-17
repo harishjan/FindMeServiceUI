@@ -4,7 +4,9 @@ import React from 'react';
 import Card from './Card';
 
 function SearchList({ result }) {    
-    const displayResult = result.map(user =>  <Card key={user.id} user={user} />);    
+    console.log("test");
+    console.log(result);
+    const displayResult = result.map(data =>  <Card key={data.user.id} data={data} />);    
     return (
         <div className="searchgrid-container">
             {displayResult}
