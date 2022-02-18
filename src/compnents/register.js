@@ -17,6 +17,8 @@ import Autocomplete from "./Search/GoogleAddressAutoComplete";
 import ToggleButton from "react-toggle-button";
 import { WithContext as ReactTags } from 'react-tag-input';
 import skillTags from "../static/skills"
+import {registerAsWorker, registerHelpFinderUSer} from "../services/authService"
+import { history } from "../actions/history";
 
 import {
   BrowserRouter as Router,
@@ -26,6 +28,7 @@ import {
    
   
 } from "react-router-dom";
+import { SET_MESSAGE } from "../enums/constant";
 
 
 const required = (value) => {
@@ -90,7 +93,7 @@ const Register = (props) => {
     const [loading, setLoading] = useState(false);
     const { isLoggedIn } = useSelector(state => state.auth);
     const { message } = useSelector(state => state.message);
-    const [addressValue, setAddressValue] = useState("");
+    
     const dispatch = useDispatch();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");    
@@ -135,7 +138,7 @@ const Register = (props) => {
 
     const handleRegister = (e) => {   
         dispatch(clearMessage());
-        alert('test')      
+       // alert('test')      
         e.preventDefault()  
         form.current.validateAll();
         alert(address)
@@ -147,24 +150,78 @@ const Register = (props) => {
             dispatch(setMessage("At least one skill should be seleted"));
             return;
         }
-        if(workUser && desc.length == 0){
+        if(workUser && desc.length <10 ){
             dispatch(setMessage("Please add a breif description about your work experience"));
             return;
         }
         if (checkBtn.current.context._errors.length === 0) {
-        setLoading(true);
-        dispatch(authLogin(email, password))
-            .then(() => {
-            props.history.push("/home");
-            window.location.reload();
-            })
-            .catch(() => {
-            setLoading(false);
-            });
+            setLoading(true);
+            if(!Worker){
+                registerAsWorker(email, password, firstName, lastName, escape(address), escape(desc), skills)
+                    .then(
+
+                        () => {
+                            history.push("/home");
+                            window.location.reload();
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                          const message =
+                            (error.response &&
+                              error.response.data &&
+                              error.response.data.message) ||
+                            error.message ||
+                            error.toString();
+                    
+                          dispatch({
+                            type: SET_MESSAGE,
+                            payload: message,
+                          });
+                          setLoading(false);
+                          return Promise.reject();
+                        }
+                    );
+            }
+            else{
+                registerHelpFinderUSer(email, password, firstName, lastName, address)
+                .then(()=>{
+                        history.push("/home");
+                        window.location.reload();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    const message =
+                        (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+                
+                    dispatch({
+                        type: SET_MESSAGE,
+                        payload: message,
+                    });
+                    setLoading(false);
+                    return Promise.reject();
+                    }
+                );
+            }
         } else {
-        setLoading(false);
+            setLoading(false);
         }
     };
+
+    const escape = function (str) {
+        return str
+          .replace(/[\\]/g, '\\\\')
+          .replace(/[\"]/g, '\\\"')
+          .replace(/[\/]/g, '\\/')
+          .replace(/[\b]/g, '\\b')
+          .replace(/[\f]/g, '\\f')
+          .replace(/[\n]/g, '\\n')
+          .replace(/[\r]/g, '\\r')
+          .replace(/[\t]/g, '\\t');
+      };
 
     if (isLoggedIn) {
         return <Navigate to="/home" />;
@@ -192,7 +249,7 @@ const Register = (props) => {
       };
     
       const handleSkillTagClick = (index) => {
-        console.log("The skill at index " + index + " was clicked");
+        //console.log("The skill at index " + index + " was clicked");
       };
     
       const onSkillClearAll = () => {

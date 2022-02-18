@@ -3,16 +3,21 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate    } from "react-router-dom";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
-function Card({data}) {    
+function Card({data, key}) {    
     const navigate = useNavigate();
     const { user: currentUser } = useSelector((state) => state.auth);
-    const handleSubmit = () => {      
-        currentUser ?   
-            requestForWork() : navigate('/login');        
+    const handleSubmit = (userId) => {   
+        
+       navigate('/login');        
       }
-    const requestForWork= () =>{
-        alert("request for work")
+    const requestForWork = (workerUserId, HelpFinderUserId) =>{
+       
+       
+     
+        //alert("request for work")
     }
   return(    
 
@@ -23,9 +28,24 @@ function Card({data}) {
         <h6>{data.user.address} </h6> <h15 className="miles"> {Number((data.distanceFromUsersLocation).toFixed(1))} mile away</h15>
         <p className="userdesc">{data.user.userDescription}</p>
         <div className="buttons">
-            <button className="primary" onClick={handleSubmit}>
-                {currentUser ? "Request for work" : "Login and request for Work"}
-            </button>            
+            
+            {currentUser ?  
+                <Popup  trigger={<button className="primary" > Request for work"</button>} >
+                <div>
+                <div className='add-dialog'>
+                <h3>Add item to display</h3>
+                <p>Request {data.user.firstName} for work</p>
+                <div className="add-dialog-buttons">
+                    <button >No</button>
+                    <button >Yes, add item</button>
+                </div>
+    </div>
+                </div>
+                </Popup>:
+                    <button className="primary" onClick={(e) => handleSubmit(data.user.userId)} >
+                    Login and request for Work
+                    </button>    
+            }   
         </div>
         <div className="skills">
             <h6>Skills</h6>

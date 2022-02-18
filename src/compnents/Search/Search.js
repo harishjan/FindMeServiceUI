@@ -62,6 +62,7 @@ function Search() {
           return Promise.reject();
         }
       );
+      setLoading(false);
 
    
 

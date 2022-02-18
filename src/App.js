@@ -22,7 +22,7 @@ import {
 import HeaderNavBar from "./compnents/navbar"
 import { SET_LAT, SET_LOCATION_DECLIED, SET_LONG, SET_MESSAGE } from './enums/constant';
 
-export const App = () => {  
+export const App = (props) => {  
 
   const { user: currentUser } = useSelector((state) => state.auth);  
   const dispatch = useDispatch();
@@ -101,9 +101,9 @@ export const App = () => {
         <Routes>                
         <Route exact path='/' element={<Home/>}/>
         <Route exact path='/home' element={<Home/>}/>
-        <Route exact path='/login' element={<Login/>}/>
-        <Route exact path='/profile' element={<Profile/>}/>
-        <Route exact path='/register' element={<Register/>}/>              
+        <Route exact path='/login' element={<Login props={props}/>}/>
+        <Route exact path='/profile' element={<Profile props={props}/>}/>
+        <Route exact path='/register' element={<Register props={props}/>}/>              
         </Routes>        
       </Fragment>
     </Router>
