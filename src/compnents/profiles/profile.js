@@ -22,16 +22,16 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import skillTags from "../../static/skills"
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ProfileInfo from "./profileinfo"
-import WorkInquiry from "./workinquiry"
+import WorkInquirySent from "./workinquirySent"
 import 'react-tabs/style/react-tabs.css';
 import WorkRequestReceived from "./WorkRequestReceived";
 
 const Profile = (props) => {
+    const { user: currentUser } = useSelector((state) => state.auth);
+
    
-    const { isLoggedIn } = useSelector(state => state.auth);
    
-   
-    if (!isLoggedIn) {
+    if (!currentUser) {
        return <Navigate to="/home" />;
     }
   
@@ -43,13 +43,12 @@ const Profile = (props) => {
            <Tabs selectedIndex={tabIndex} onSelect={index => setTabIndex(index)} className="tabs profiles-tab tc pa4 min-vh-100">
             <TabList>
                 <Tab>My information</Tab>
-                <Tab>Work Inquiry</Tab>
-                {/*user.role.includes('ROLE_WORKER_USER') && <Tab>Work Request received</Tab>*/}
-                <Tab>Work Request received</Tab>
+                {currentUser && currentUser.roles.indexOf("SEARCH_FOR_WORKERS") >= 0 && <Tab>Work Inquiry</Tab>}                
+                {currentUser && currentUser.roles.indexOf("ALLOWED_TO_BE_HIRE") >= 0 &&  <Tab>Work Request received</Tab>}
             </TabList>
             <TabPanel><ProfileInfo/></TabPanel>
-            <TabPanel><WorkInquiry/></TabPanel>
-            <TabPanel><WorkRequestReceived/></TabPanel>
+            {currentUser && currentUser.roles.indexOf("SEARCH_FOR_WORKERS") >= 0 && <TabPanel><WorkInquirySent/></TabPanel>}
+            {currentUser && currentUser.roles.indexOf("ALLOWED_TO_BE_HIRE") >= 0 &&  <TabPanel><WorkRequestReceived/></TabPanel>}
             </Tabs>
       
         </div>

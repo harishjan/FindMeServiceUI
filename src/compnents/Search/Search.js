@@ -23,11 +23,13 @@ function Search() {
     setLoading(true);
     dispatch(setMessage(""));        
     if( locDeclined){
-        dispatch(setMessage("Please allow the browser to get your location to start the search"));        
+        dispatch(setMessage("Please allow the browser to get your location to start the search"));      
+        setLoading(false)  
         return;
     }
     if(!searchValue){
         dispatch(setMessage("Please enter a skill to search"));        
+        setLoading(false)
         return;
     }
     setSearchedKey(searchValue);             

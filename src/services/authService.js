@@ -14,7 +14,7 @@ const registerHelpFinderUSer = async (email, password, firstName, lastName, addr
 
 
 const registerAsWorker = async (email, password, firstName, lastName, address, userDescription, skills) => {
-    return await axios.post(API_URL + "signup/registerWorker", {
+    return await axios.post(API_URL + "registerWorker", {
       email,
     password,
     firstName,

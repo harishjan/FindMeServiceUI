@@ -137,11 +137,9 @@ const Register = (props) => {
     };
 
     const handleRegister = (e) => {   
-        dispatch(clearMessage());
-       // alert('test')      
+        dispatch(clearMessage());       
         e.preventDefault()  
-        form.current.validateAll();
-        alert(address)
+        form.current.validateAll();        
         if(!address){
             dispatch(setMessage("Please add address"));
             return;
@@ -155,9 +153,13 @@ const Register = (props) => {
             return;
         }
         if (checkBtn.current.context._errors.length === 0) {
+            
+            var workerSkills = skills.map(v => ({"skillId":v.id, "skillName":v.text }));
+
+            console.log(workerSkills);
             setLoading(true);
-            if(!Worker){
-                registerAsWorker(email, password, firstName, lastName, escape(address), escape(desc), skills)
+            if(workUser){
+                registerAsWorker(email, password, firstName, lastName, escape(address), escape(desc), workerSkills)
                     .then(
 
                         () => {

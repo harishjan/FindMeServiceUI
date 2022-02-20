@@ -236,6 +236,8 @@ p {
 
 .searchcard-container .userdesc{
     color: #f7fcf4;
+    padding-top: 10px;
+    padding-bottom: 5px;
 }
 
 .searchgrid-container{
@@ -247,12 +249,50 @@ p {
     padding-bottom: 5%;
 }
 
+.workrequest-card{
+    color: #B3B8CD;
+	background-color: #231E39;;	
+    width: 20em;
+    height: 50%;
+    box-shadow: 0px 10px 10px -10px rgba(0,0,0,0.75);
+    padding: 3px, 3px,3px,3px;
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+    margin-left: 5px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.workrequest-card .title{    
+    margin-left: 12px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 90%;
+    font-size: 18px;
+}
+.workrequest-card input,
+.workrequest-card textarea,
+.workrequest-card p{
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 90%;
+}
+
+.searchcard-container .message-sent{
+    color: rgb(240, 128, 128);
+}
+.workrequest-card button {
+    margin-left: 70px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
 
 
 .searchcard-container .status{
     color: #033f32;
 	background-color: #a097a7;
-	border-radius: 3px;
+	border-radius: 5px;
 	font-size: 14px;
 	font-weight: bold;	
 	top: 30px;
@@ -260,6 +300,18 @@ p {
     margin-bottom: 30px;
     width: 80%;    
 	left: 30px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    text-align: left;
+
+
+}
+.searchcard-container .work-detail{
+    font-weight: bold;
+    font-size: 15px;
+    color: rgb(8, 8, 8);
 }
 .searchcard-container .pro {
 	color: #231E39;
@@ -274,6 +326,10 @@ p {
 }
 
 
+.searchcard-container .address {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
 .searchcard-container .miles {
 	color: #231E39;
 	background-color: #0bfe48;
@@ -283,8 +339,15 @@ p {
 	padding: 3px 7px;	
 	top: 30px;
 	left: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
+.searchcard-container .cancelbtn{
+    margin-top: 10px;        
+}
 .round {
 	border: 1px solid #03BFCB;
 	border-radius: 50%;
