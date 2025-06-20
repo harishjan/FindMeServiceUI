@@ -59,8 +59,7 @@ function Card({data, key}) {
                 setLoading(false);
                 return Promise.resolve();
             })
-            .catch((error) => {
-                debugger;
+            .catch((error) => {                
                 console.log("log erro");
                 console.log(error);
                 //tbd

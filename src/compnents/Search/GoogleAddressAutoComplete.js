@@ -1,8 +1,7 @@
 /*reference taken from https://codesandbox.io/s/long-wave-0tgqs?file=/src/Autocomplete.js:0-2540*/
-import React , {useEffect, useState} from 'react';
-import Input from "react-validation/build/input";
+import { useEffect, useState } from 'react';
 import usePlacesService from "react-google-autocomplete/lib/usePlacesAutocompleteService";
-let YOUR_GOOGLE_MAPS_API_KEY = 'AIzaSyC39Y3k4jMSeZKcAfjQUg-QYwNpykWS8_g';
+let YOUR_GOOGLE_MAPS_API_KEY = 'add your google maps api key here';
 
 const GoogleAddressAutoComplete = ({setAdddress}) => {
     const [filteredSuggestions, setFilteredSuggestions] = useState([]);

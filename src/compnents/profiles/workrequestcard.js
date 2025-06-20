@@ -1,8 +1,7 @@
 
 //reference from https://codepen.io/FlorinPop17/pen/EJKgKB
-import React from 'react';
-import { useDispatch, useSelector } from "react-redux"
-import { useNavigate    } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function WorkRequestCard({user}) {    
     const navigate = useNavigate();
@@ -14,17 +13,7 @@ function WorkRequestCard({user}) {
     const requestForWork= () =>{
         alert("request for work")
     }
-  return(
-    /* <span>
-    <div className="tc bg-light-grey dib br3 pa10 ma2 grow bw2 shadow-5">
-
-      <img className="br-100 h3 w3 dib" alt={user.firstName} src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-      <div>
-        <h1>{user.firstName} {user.lastName}</h1>
-      </div>      
-    </div>
-    </span>*/
-
+  return( 
     <div class="searchcard-container">
         <span class="pro">Expert</span>
         <img class="round" alt={user.firstName} src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"  />

@@ -20,8 +20,7 @@ function WorkRequestReceived() {
                 console.log(result);
                   if(result.data && result.data.length > 0)
                     setResult(result.data.map(inquiry =>  <ProfileCard key={inquiry.helpFinderUser.userId} dispUser={inquiry.helpFinderUser} inquiry={inquiry} />));   
-                //  alert.show('Work inquiry sent!!!');
-                  //setVisibilityofpopup(false)  
+              
                   else
                     setMessageInfo({tex:"No work inquiries found",isError:false});
                   setLoading(false);

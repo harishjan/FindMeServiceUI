@@ -6,7 +6,7 @@ import {
     NavMenu,
     NavBtn,
     NavBtnLink,
-  } from './NavbarElements';
+  } from './navbar/NavbarElements';
 
 export default function HeaderNavBar() {
   
