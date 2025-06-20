@@ -48,8 +48,6 @@ To enable address autocomplete and geolocation features, you must create a Googl
    let YOUR_GOOGLE_MAPS_API_KEY = 'YOUR_API_KEY_HERE';
    ```
 
-**Do not commit your API key to public repositories.**
-
 ## Author
 Harish Janardhanan
 
